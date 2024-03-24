@@ -17,8 +17,16 @@ type Note struct {
 func GetNoteHandler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "text/html")
     
+    notes_to_send := map[string][]Note{
+        "Notes": {
+            {"Note 1", "This is the body of note 1"},
+            {"Note 2", "This is the body of note 2"},
+            {"Note 3", "This is the body of note 3"},
+        },
+    }
+
 	tmpl := template.Must(template.ParseFiles("public/notes.html"))
-	tmpl.Execute(w, notes_db)
+	tmpl.Execute(w, notes_to_send)
 }
 
 func CreateNoteHandler(w http.ResponseWriter, r *http.Request) {
