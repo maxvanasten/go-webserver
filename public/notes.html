@@ -1,17 +1,6 @@
-<html>
-
-<head>
-</head>
-
-<body>
-
-    {{ range .Notes }}
-    <div>
-        <h1>{{ .Title }}</h1>
-        <p>{{ .Body }}</p>
-    </div>
-    {{ end }}
-
-</body>
-
-</html>
+{{ range .Notes }}
+<div>
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Body }}</p>
+</div>
+{{ end }}
