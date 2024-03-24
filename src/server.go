@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"encoding/json"
 	"io"
 	"log"
@@ -23,14 +24,25 @@ func main() {
     var config Config
     json.Unmarshal(byteValue, &config)
 
+    certFilePath := "./domain.cert.pem"
+    keyFilePath := "./private.key.pem"
+    serverTLSCert, err := tls.LoadX509KeyPair(certFilePath, keyFilePath)
+    if err != nil {
+        log.Fatalf("Error loading certificate and key file: %v", err)
+    }
+    tlsConfig := &tls.Config {
+        Certificates: []tls.Certificate{serverTLSCert},
+    }
+
 	router := get_router()
 
 	server := http.Server{
 		Addr:    config.Port,
 		Handler: router,
+        TLSConfig: tlsConfig,
 	}
     log.Println("SERVER RUNNING (http://localhost" + config.Port + "/)")
-    server.ListenAndServe()
+    server.ListenAndServeTLS("", "")
 }
 
 func get_router() *http.ServeMux {
