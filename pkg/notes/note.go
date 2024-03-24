@@ -15,9 +15,6 @@ type Note struct {
 }
 
 func GetNoteHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("GET /notes"))
-	
-
 	tmpl := template.Must(template.ParseFiles("public/notes.html"))
 	tmpl.Execute(w, notes_db)
 }
