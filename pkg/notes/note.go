@@ -5,7 +5,7 @@ import (
     "net/http"
 )
 
-var notes_db = []Note{}
+//var notes_db = []Note{}
 
 // Note is a struct that represents a note
 type Note struct {
