@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
     "time"
+    "github.com/maxvanasten/go-webserver/pkg/router"
 )
 
 type Config struct {
@@ -35,7 +36,7 @@ func main() {
         Certificates: []tls.Certificate{serverTLSCert},
     }
 
-	router := GetRouter()
+	router := router.GetRouter()
 
 	server := http.Server{
 		Addr:    config.Port,
