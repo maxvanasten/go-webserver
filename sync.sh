@@ -1,3 +1,8 @@
+# Update git repo
+git add .
+git commit -m "./sync.sh update"
+git push
+
 # Stop running server and update files
 ssh max@172.233.59.9 'tmux kill-session -t go-webserver; /home/max/scripts/update.sh'
 ./scripts/cp_tls.sh
