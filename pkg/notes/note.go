@@ -1,8 +1,8 @@
 package notes
 
 import (
-    "time"
     "net/http"
+    "encoding/json"
 )
 
 var notes_db = []Note{}
@@ -11,7 +11,6 @@ var notes_db = []Note{}
 type Note struct {
     Title string
     Body string
-    CreatedAt time.Time
 }
 
 func GetNoteHandler(w http.ResponseWriter, r *http.Request) {
@@ -22,5 +21,15 @@ func GetNoteHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateNoteHandler(w http.ResponseWriter, r *http.Request) {
+    var note Note
+    err := json.NewDecoder(r.Body).Decode(&note)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusBadRequest)
+        return
+    }
+
+    notes_db = append(notes_db, note)
     w.Write([]byte("POST /notes"))
+    w.Write([]byte(note.Title))
+    w.Write([]byte(note.Body))
 }
