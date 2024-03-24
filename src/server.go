@@ -35,7 +35,7 @@ func main() {
         Certificates: []tls.Certificate{serverTLSCert},
     }
 
-	router := get_router()
+	router := GetRouter()
 
 	server := http.Server{
 		Addr:    config.Port,
@@ -46,19 +46,6 @@ func main() {
     log.Fatal(server.ListenAndServeTLS("", ""))
 }
 
-func get_router() *http.ServeMux {
-    router := http.NewServeMux()
-    
-    router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello, World!"))
-    })
-
-    // Method based routing with parameters
-    router.HandleFunc("GET /api/{command}", CommandHandler)
-
-    return router
-}
-
 func LoggingMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         start := time.Now()
@@ -67,8 +54,3 @@ func LoggingMiddleware(next http.Handler) http.Handler {
     })
 }
 
-func CommandHandler(w http.ResponseWriter, r *http.Request) {
-    command := r.PathValue("command")
-
-    w.Write([]byte("Command: " + command))
-}
