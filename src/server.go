@@ -42,7 +42,7 @@ func main() {
         TLSConfig: tlsConfig,
 	}
     log.Println("SERVER RUNNING (http://localhost" + config.Port + "/)")
-    server.ListenAndServeTLS("", "")
+    log.Fatal(server.ListenAndServeTLS("", ""))
 }
 
 func get_router() *http.ServeMux {
