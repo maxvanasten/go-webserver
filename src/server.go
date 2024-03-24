@@ -49,7 +49,7 @@ func get_router() *http.ServeMux {
     router := http.NewServeMux()
     
     router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello, World!"))
+        w.Write([]byte("Hello, World TESTING!"))
     })
 
     // Method based routing with parameters
