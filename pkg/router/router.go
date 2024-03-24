@@ -2,13 +2,15 @@ package router
 
 import (
     "net/http"
+    "html/template"
 )
 
 func GetRouter() *http.ServeMux {
     router := http.NewServeMux()
     
     router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello, World!"))
+        tmpl := template.Must(template.ParseFiles("public/index.html"))
+        tmpl.Execute(w, nil)
     })
 
     // Method based routing with parameters
