@@ -5,7 +5,7 @@ import (
     "net/http"
 )
 
-//var notes_db = []Note{}
+var notes_db = []Note{}
 
 // Note is a struct that represents a note
 type Note struct {
@@ -16,6 +16,9 @@ type Note struct {
 
 func GetNoteHandler(w http.ResponseWriter, r *http.Request) {
     w.Write([]byte("GET /notes"))
+    for i := range notes_db {
+        w.Write([]byte(notes_db[i].Title))
+    }
 }
 
 func CreateNoteHandler(w http.ResponseWriter, r *http.Request) {
