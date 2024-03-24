@@ -1,6 +1,12 @@
-{{ range .Notes }}
-<div>
-    <h1>{{ .Title }}</h1>
-    <p>{{ .Body }}</p>
-</div>
+{{ if len(.Notes) == 0 }}
+    <div>
+        <h1>No notes found</h1>
+    </div>
+{{ else }}
+    {{ range .Notes }}
+    <div>
+        <h1>{{ .Title }}</h1>
+        <p>{{ .Body }}</p>
+    </div>
+    {{ end }}
 {{ end }}
