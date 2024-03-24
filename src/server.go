@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+    "time"
 )
 
 type Config struct {
@@ -38,7 +39,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    config.Port,
-		Handler: router,
+		Handler: LoggingMiddleware(router),
         TLSConfig: tlsConfig,
 	}
     log.Println("SERVER RUNNING (http://localhost" + config.Port + "/)")
@@ -56,6 +57,14 @@ func get_router() *http.ServeMux {
     router.HandleFunc("POST /api/{command}", CommandHandler)
 
     return router
+}
+
+func LoggingMiddleware(next http.Handler) http.Handler {
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+        start := time.Now()
+        next.ServeHTTP(w, r)
+        log.Println(r.Method, r.URL.Path, time.Since(start))
+    })
 }
 
 func CommandHandler(w http.ResponseWriter, r *http.Request) {
