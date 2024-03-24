@@ -1,6 +1,8 @@
-<html>
+<!DOCTYPE html>
 
 <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/litera/bootstrap.min.css"
+        integrity="sha384-enpDwFISL6M3ZGZ50Tjo8m65q06uLVnyvkFO3rsoW0UC15ATBFz3QEhr3hmxpYsn" crossorigin="anonymous">
     <script src="https://unpkg.com/htmx.org@1.9.11"
         integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
         crossorigin="anonymous"></script>
@@ -8,10 +10,12 @@
 </head>
 
 <body>
-    <h1>Hello, world!</h1>
+    <div class="container">
+        <p class="title">maxvanasten.dev</p>
 
-    <div hx-get="/notes" hx-trigger="every 1s">
+        <div hx-get="/notes" hx-trigger="load every 1s">
 
+        </div>
     </div>
 </body>
 
