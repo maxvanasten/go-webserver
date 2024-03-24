@@ -54,7 +54,7 @@ func get_router() *http.ServeMux {
     })
 
     // Method based routing with parameters
-    router.HandleFunc("POST /api/{command}", CommandHandler)
+    router.HandleFunc("GET /api/{command}", CommandHandler)
 
     return router
 }
