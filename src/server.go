@@ -1,18 +1,35 @@
 package main
 
 import (
+	"encoding/json"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
+type Config struct {
+    Port string `json:"PORT"`
+}
+
 func main() {
+    // Read the config file
+    file, err := os.Open("config.json")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer file.Close()
+    byteValue, _ := io.ReadAll(file)
+    var config Config
+    json.Unmarshal(byteValue, &config)
+
 	router := get_router()
 
 	server := http.Server{
-		Addr:    ":3000",
+		Addr:    config.Port,
 		Handler: router,
 	}
-    log.Println("Server is running on port 3000 (http://localhost:3000)")
+    log.Println("SERVER RUNNING (http://localhost" + config.Port + "/)")
     server.ListenAndServe()
 }
 
